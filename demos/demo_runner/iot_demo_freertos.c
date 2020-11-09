@@ -314,11 +314,21 @@ void runDemoTask( void * pArgument )
         pCredentials = AwsIotNetworkManager_GetCredentials( demoConnectedNetwork );
 
         /* Run the demo. */
+		#ifdef CONFIG_COAP_DEMO_ENABLED
+        status = pContext->demoFunction( false,
+                                         NULL,
+                                         pConnectionParams,
+                                         pCredentials,
+                                         pNetworkInterface );
+
+		#else
         status = pContext->demoFunction( true,
                                          clientcredentialIOT_THING_NAME,
                                          pConnectionParams,
                                          pCredentials,
                                          pNetworkInterface );
+		#endif /* CONFIG_COAP_DEMO_ENABLED */
+
 
         #ifdef democonfigMEMORY_ANALYSIS
             /* If memory analysis is enabled metrics regarding the heap and stack usage of the demo will print. */
