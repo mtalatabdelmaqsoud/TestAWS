@@ -48,8 +48,6 @@
         #undef democonfigDEMO_PRIORITY
         #define democonfigDEMO_PRIORITY     democonfigMQTT_ECHO_TASK_PRIORITY
     #endif
-#elif defined( CONFIG_COAP_DEMO_ENABLED )
-    #define DEMO_entryFUNCTION              RuncoapDemo
 #elif defined( CONFIG_CORE_MQTT_BASIC_TLS_DEMO_ENABLED )
     #define DEMO_entryFUNCTION              RunCoreMqttBasicTLSDemo
     #if defined( democonfigMQTT_ECHO_TASK_STACK_SIZE )
