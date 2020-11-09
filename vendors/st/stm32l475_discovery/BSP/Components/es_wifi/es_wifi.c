@@ -44,6 +44,7 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
+
 #include "es_wifi.h"
 
 #define DEBUG  printf("%s:%d :",__FILE__,__LINE__);printf
@@ -1657,9 +1658,9 @@ ES_WIFI_Status_t ES_WIFI_StartClientConnection(ES_WIFIObject_t *Obj, ES_WIFI_Con
     sprintf((char*)Obj->CmdData,"P4=%d\r", conn->RemotePort);
     ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
   }
-
-  if ((ret == ES_WIFI_STATUS_OK) && ((conn->Type == ES_WIFI_TCP_CONNECTION) || (conn->Type == ES_WIFI_TCP_SSL_CONNECTION)))
-  {
+  /* Support UDP sockets */
+  if ((ret == ES_WIFI_STATUS_OK) && ( (conn->Type == ES_WIFI_TCP_CONNECTION) || (conn->Type == ES_WIFI_TCP_SSL_CONNECTION) || (conn->Type == ES_WIFI_UDP_CONNECTION)) )
+	  {
     sprintf((char*)Obj->CmdData,"P3=%d.%d.%d.%d\r", conn->RemoteIP[0],conn->RemoteIP[1],
             conn->RemoteIP[2],conn->RemoteIP[3]);
     ret = AT_ExecuteCommand(Obj, Obj->CmdData, Obj->CmdData);
